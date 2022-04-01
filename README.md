@@ -1,5 +1,11 @@
-### Hi there 👋
+### <p align="center">Hi there 👋</p>
+### <p align="center">I am Kinyara Samuel Gachigo</p>
+------------
 
+Currently a working with C, Web Development PHP laravel framework, Vue Js and nodeJs.
+I am currently learning low level development language C.
+My favourite quote is "Today is a new day, a new opportunity to become a better me."
+ 
 <!--
 **Kinyarasam/Kinyarasam** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
