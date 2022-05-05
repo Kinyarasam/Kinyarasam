@@ -1,6 +1,9 @@
+[![GitHub Badge](https://img.shields.io/badge/-@kinyarasam-%23181717?style=flat&logo=github)](https://github.com/Kinyarasam)
+
 ### <p align="center">Hi there 👋</p>
 ### <p align="center">I am Kinyara Samuel Gachigo</p>
 ------------
+
 
 Currently I'm working with C, Web Development PHP laravel framework, Vue Js and nodeJs.
 I am currently learning low level development language C.
