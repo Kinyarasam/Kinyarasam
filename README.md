@@ -1,4 +1,4 @@
-[![GitHub Badge](https://img.shields.io/badge/-@kinyarasam-%23181717?style=flat&logo=github)](https://github.com/Kinyarasam) [![Gmail Badge](https://img.shields.io/badge/-skinyara.30@gmail.com-c14438?style=flat&logo=Gmail&logoColor=white&link=mailto:skinyara.30@gmail.com)](mailto:skinyara.30@gmail.com)
+[![GitHub Badge](https://img.shields.io/badge/-@kinyarasam-%23181717?style=flat&logo=github)](https://github.com/Kinyarasam) [![Gmail Badge](https://img.shields.io/badge/-skinyara.30@gmail.com-c14438?style=flat&logo=Gmail&logoColor=white&link=mailto:skinyara.30@gmail.com)](mailto:skinyara.30@gmail.com) [![Twitter Badge](https://img.shields.io/badge/-@Kinyarasam-1ca0f1?style=flat&labelColor=1ca0f1&logo=twitter&logoColor=white&link=https://twitter.com/Kinyarasam)](https://twitter.com/Kinyarasam) [![Linkedin Badge](https://img.shields.io/badge/-@Kinyarasam-blue?style=flat&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/samuel-gachigo-kinyara-0b2358184/)](https://www.linkedin.com/in/samuel-gachigo-kinyara-0b2358184/)
 
 ### <p align="center">Hi there 👋</p>
 ### <p align="center">I am Kinyara Samuel Gachigo</p>
