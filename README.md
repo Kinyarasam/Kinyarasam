@@ -1,4 +1,4 @@
-[![GitHub Badge](https://img.shields.io/badge/-@kinyarasam-%23181717?style=flat&logo=github)](https://github.com/Kinyarasam) [![Gmail Badge](https://img.shields.io/badge/-Mail-c14438?style=flat&logo=Gmail&logoColor=white&link=mailto:skinyara.30@gmail.com)](mailto:skinyara.30@gmail.com)
+[![GitHub Badge](https://img.shields.io/badge/-@kinyarasam-%23181717?style=flat&logo=github)](https://github.com/Kinyarasam) [![Gmail Badge](https://img.shields.io/badge/-skinyara.30@gmail.com-c14438?style=flat&logo=Gmail&logoColor=white&link=mailto:skinyara.30@gmail.com)](mailto:skinyara.30@gmail.com)
 
 ### <p align="center">Hi there 👋</p>
 ### <p align="center">I am Kinyara Samuel Gachigo</p>
