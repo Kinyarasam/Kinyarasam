@@ -8,8 +8,8 @@
 Currently I'm working with C, Web Development PHP laravel framework, Vue Js and nodeJs.
 I am currently learning low level development language C.
 My favourite quote is "Today is a new day, a new opportunity to become a better me."
-
-[![Suren Atoyan's github stats](https://github-readme-stats.vercel.app/api?username=kinyarasam&show_icons=true&theme=tokyonight&include_all_commits=true&count_private=true&hide=issues,contribs)](https://github.com/kinyarasam/github-readme-stats)
+<!-- 
+[![Suren Atoyan's github stats](https://github-readme-stats.vercel.app/api?username=kinyarasam&show_icons=true&theme=tokyonight&include_all_commits=true&count_private=true&hide=issues,contribs)](https://github.com/kinyarasam/github-readme-stats) -->
 <!--
 [![Anurag's GitHub stats](https://github-readme-stats.vercel.app/api?username=kinyarasam)](https://github.com/kinyarasam/github-readme-stats)
 
