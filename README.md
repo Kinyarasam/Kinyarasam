@@ -1,3 +1,5 @@
+<!--
+
 [![GitHub Badge](https://img.shields.io/badge/-@kinyarasam-%23181717?style=flat&logo=github)](https://github.com/Kinyarasam) [![Gmail Badge](https://img.shields.io/badge/-skinyara.30@gmail.com-c14438?style=flat&logo=Gmail&logoColor=white&link=mailto:skinyara.30@gmail.com)](mailto:skinyara.30@gmail.com) [![Twitter Badge](https://img.shields.io/badge/-@Kinyarasam-1ca0f1?style=flat&labelColor=1ca0f1&logo=twitter&logoColor=white&link=https://twitter.com/Kinyarasam)](https://twitter.com/Kinyarasam) [![Linkedin Badge](https://img.shields.io/badge/-@Kinyarasam-blue?style=flat&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/kinyara-samuel-gachigo-885b151a5/)](https://www.linkedin.com/in/kinyara-samuel-gachigo-885b151a5/)
 
 ### <p align="center">Hi there 👋</p>
@@ -9,7 +11,7 @@ Currently I'm working with C, Web Development PHP laravel framework, Vue Js and 
 I am currently learning low level development language C.
 My favourite quote is "Today is a new day, a new opportunity to become a better me."
 
-
+-->
 Hi 👋 My name is Kinyara Samuel Gachigo
 =======================================
 
