@@ -20,7 +20,7 @@ Web Developer | Dev-ops
 
 * 🌍  I'm based in Narobi, Kenya.
 * ✉️  You can contact me at [skinyara.30@gmail.com](mailto:skinyara.30@gmail.com)
-* 🧠  I'm learning Vue Js, C, low level programming, object oriented programming
+* 🧠  I'm learning Vue Js, C, Python, scripting, low level programming, object oriented programming
 * 🤝  I'm open to collaborating on front end projects on Vue.
 * ⚡  I love playing the piano and playing a good game of chess.
 
