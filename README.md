@@ -15,8 +15,8 @@ My favourite quote is "Today is a new day, a new opportunity to become a better 
 Hi 👋 My name is Kinyara Samuel Gachigo
 =======================================
 
-Web Developer | Dev-ops
------------------------
+Software Dev | Web Developer | Dev-ops
+--------------------------------------
 
 * 🌍  I'm based in Narobi, Kenya.
 * ✉️  You can contact me at [skinyara.30@gmail.com](mailto:skinyara.30@gmail.com)
