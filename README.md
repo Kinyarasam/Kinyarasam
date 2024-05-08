@@ -11,7 +11,6 @@ Currently I'm working with C, Web Development PHP laravel framework, Vue Js and 
 I am currently learning low level development language C.
 My favourite quote is "Today is a new day, a new opportunity to become a better me."
 
--->
 Hi 👋 My name is Kinyara Samuel Gachigo
 =======================================
 
@@ -23,12 +22,28 @@ Software Dev | Web Developer | Dev-ops
 * 🧠  I'm learning Vue Js, C, Python, scripting, low level programming, object oriented programming
 * 🤝  I'm open to collaborating on front end projects on Vue and projects on Python.
 * ⚡  I love playing the piano and playing a good game of chess.
+-->
+👋 Hi there! I'm Kinyarasam.
+===========================
+A passionate software engineer with a focus on backend technologies.
+
+🐍 I primarily work with Python, leveraging its versatility and elegance to build robust and scalable systems.
+
+🚀 Currently, I'm diving into the worlds of Rust and Go, exploring their potential for high-performance applications and systems programming.
+
+💼 With a strong background in DevOps and cloud technologies, I thrive on automating processes and optimizing infrastructure for efficiency and reliability.
+
+💡 I love tinkering with IoT projects and delving into low-level programming to understand how things work under the hood.
+
+🔧 Whether it's scripting, network monitoring, system administration, or ensuring security best practices, I'm always eager to tackle new challenges head-on.
+
+📡 Fascinated by GSM technology and its applications, I enjoy exploring its potential in various projects.
 
 <a href="https://www.twitter.com/kinyarasam" target="_blank" rel="noreferrer"><img
 src="https://img.shields.io/twitter/follow/kinyarasam?logo=twitter&style=for-the-badge&color=0891b2&labelColor=1c1917"
 /></a>
 
-### Skills
+## Skills
 
 <p align="left">
 <a href="https://docs.microsoft.com/en-us/cpp/?view=msvc-170" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/python-colored.svg" width="36" height="36" alt="Python" /></a>
@@ -46,12 +61,12 @@ src="https://img.shields.io/twitter/follow/kinyarasam?logo=twitter&style=for-the
 </p>
 
 
-### Socials
+## Socials
 
 <p align="left"> <a href="https://www.github.com/kinyarasam" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/github.svg" width="32" height="32" /></a> <a href="https://www.linkedin.com/in/kinyara-samuel-gachigo-885b151a5" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/linkedin.svg" width="32" height="32" /></a> <a href="https://www.twitter.com/kinyarasam" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/twitter.svg" width="32" height="32" /></a><a href="https://www.instagram.com/kinyarasam" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/instagram.svg" width="32" height="32" /></a></p>
 
 
-### Badges
+## Badges
 
  <b>My GitHub Stats</b>
 
