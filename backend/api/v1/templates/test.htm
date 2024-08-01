@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Samuel Gachigo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        @font-face {
+            font-family: 'Karla';
+            src: url('{{ url_for('static', filename='fonts/Karla.ttf') }}');
+        }
+        body, h1, h2, h3, p {
+            font-family: 'Karla', sans-serif;
+            color: #8c8c8c;
+        }
+        body {
+            background-color: #f5f5f5;
+        }
+        .navbar {
+            background-color: #000;
+            padding: 1rem 2rem;
+        }
+        .navbar-brand, .nav-link {
+            color: #8c8c8c !important;
+            font-weight: bold;
+        }
+        .nav-link {
+            margin-left: 1rem;
+        }
+        .container {
+            margin-top: 3rem;
+            padding: 2rem;
+            background-color: #fff;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        h1, h2 {
+            color: #000;
+            font-weight: bold;
+        }
+        .typing {
+            border-right: .15em solid #8c8c8c; /* The typing cursor */
+            white-space: nowrap;
+            overflow: hidden; /* Ensures the text doesn't wrap */
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #8c8c8c }
+        }
+        .project-card {
+            margin-bottom: 2rem;
+        }
+        .project-card h3 {
+            color: #000;
+            font-weight: bold;
+        }
+        .contact-info ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .contact-info ul li {
+            margin-bottom: 1rem;
+        }
+        .contact-info ul li a {
+            color: #8c8c8c;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        footer {
+            background-color: #000;
+            color: #8c8c8c;
+            padding: 1.5rem 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <a class="navbar-brand" href="#">Samuel Gachigo</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#projects">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- About Section -->
+        <div id="about" class="row">
+            <div class="col-md-4">
+                <img src="{{ url_for('static', filename='images/png/logo-no-background.png') }}" class="img-fluid rounded-circle" alt="Profile Picture">
+            </div>
+            <div class="col-md-8">
+                <h1>About Me</h1>
+                <p class="typing">As a dynamic and forward-thinking software engineer, I'm on a mission to bridge the gap between cutting-edge technology and real-world solutions. My background in Telecommunication, combined with a passion for software engineering, data analysis, and databases, positions me as a versatile professional ready to tackle multifaceted challenges.</p>
+                <p class="typing">With a solid foundation in software engineering from ALX Africa, I thrive on crafting intuitive and impactful software applications. My journey has seen me contribute to projects such as the Shopzetu mobile app, where I not only honed my full-stack development skills but also leveraged my expertise in data analysis to glean valuable insights from user interactions.</p>
+                <p class="typing">I find joy in working collaboratively within diverse teams, and my proficiency in languages like Python, JavaScript, and SQL has allowed me to build efficient backend systems and design well-structured databases. Through my role at Solutech Limited, I gained hands-on experience in creating data-driven dashboards that facilitated informed decision-making.</p>
+                <p class="typing">My fascination with emerging technologies keeps me constantly learning and adapting. I believe that the convergence of software engineering and data analysis holds immense potential for driving innovation and shaping the future. I'm eager to explore opportunities that allow me to leverage my technical skills and data-driven mindset to develop impactful solutions.</p>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Projects Section -->
+        <div id="projects" class="row">
+            <div class="col-12">
+                <h2>Projects</h2>
+                <div class="row">
+                    <div class="col-md-6 project-card">
+                        <h3>AI-Driven Features for E-commerce</h3>
+                        <p>Developed and integrated AI-driven chatbots and personalized recommendation systems to enhance the customer experience. Utilized Python, TensorFlow, and Flask.</p>
+                        <p><a href="https://github.com/kinyarasam/ai-ecommerce" target="_blank">GitHub Repository</a> | <a href="#" target="_blank">Live Demo</a></p>
+                    </div>
+                    <div class="col-md-6 project-card">
+                        <h3>Taxation Compliance System</h3>
+                        <p>Implemented a system for Shop Zetu to ensure compliance with Kenya Revenue Authority regulations, streamlining financial processes. Technologies used include Python and Django.</p>
+                        <p><a href="https://github.com/kinyarasam/tax-compliance-system" target="_blank">GitHub Repository</a></p>
+                    </div>
+                </div>
+                <!-- Add more projects as needed -->
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Contact Section -->
+        <div id="contact" class="row contact-info">
+            <div class="col-12">
+                <h2>Contact Me</h2>
+                <p>Feel free to reach out to me via email or LinkedIn. I'm open to discussing new opportunities, collaboration, or just a friendly chat about technology!</p>
+                <ul>
+                    <li>Email: <a href="mailto:skinyara.30@gmail.com">skinyara.30@gmail.com</a></li>
+                    <li>Phone: +254741806234</li>
+                    <li>LinkedIn: <a href="https://www.linkedin.com/in/kinyara-samuel-gachigo-885b151a5" target="_blank">linkedin.com/in/kinyara-samuel-gachigo</a></li>
+                    <li>GitHub: <a href="https://www.github.com/kinyarasam" target="_blank">github.com/kinyarasam</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Samuel Gachigo. All rights reserved.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

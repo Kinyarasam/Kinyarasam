@@ -1,0 +1,254 @@
+:root {
+  --white: #ffffff;
+
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+  font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --font-sans-serif: 'Inter';
+}
+
+header, footer {
+  background-color: #18181b;
+  color: #fff;
+  padding: 1rem;
+}
+
+header .container, main .container, footer .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+header .profile {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+header .profile img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+header .profile h1 {
+  font-size: 2rem;
+  margin: 0.5rem 0;
+}
+
+header .profile h2 {
+  font-size: 1.25rem;
+  margin: 0.5rem 0;
+}
+
+header .profile p {
+  font-size: 1rem;
+  margin: 1rem 0;
+}
+
+header .profile .buttons {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.download-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  text-decoration: none;
+  z-index: 1000;
+}
+
+.download-button button {
+  background: linear-gradient(135deg, gray, #18181b,);
+  color: #18181b;
+  border: none;
+  padding: 0.75rem 1.25rem;
+  border-radius: 50px;
+  font-size: medium;
+  font-weight: bold;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.download-button button:hover {
+  background: linear-gradient(135deg, #18181b, var(--white));
+  transform: translateY(-4px);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.download-button button:focus {
+  outline: none;
+}
+
+/* .download-button .icon-button {
+  font-size: 1.5rem;
+} */
+
+.download-button .text {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+
+main {
+  flex: 1;
+  overflow-y: auto;
+}
+
+main section {
+  padding: 1rem 0;
+}
+
+button {
+  cursor: pointer;
+  background: transparent;
+}
+
+.buttons .icon-button .contact {
+  font-size: xx-large;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+  margin: 8px;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card .content {
+  padding: 1rem;
+}
+
+.card .content h3 {
+  font-size: 1.25rem;
+  margin: 0.5rem 0;
+}
+
+.card .content p {
+  font-size: 1rem;
+  color: #6c757d;
+}
+
+/* Default view (mobile-first) */
+.grid {
+  display: block;
+}
+
+.card {
+  margin-bottom: 20px;
+}
+.skill-card {
+  background-color: #fff; 
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.skill-card:hover {
+  transform: translateY(-5px);
+}
+
+.icon {
+  width: 60px;
+  height: 60px;
+  fill: #448973;
+  margin: 10px auto;
+}
+
+.skill-card h3 {
+  color: #333;
+  font-size: 1.5rem;
+  margin-top: 0;
+  text-align: center;
+}
+
+.skill-card p {
+  padding: 0 15px;
+  font-size: 1rem;
+  color: #666;
+  text-align: center;
+}
+
+/* Tablets */
+@media only screen and (min-width: 401px) and (max-width: 960px) {
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .card {
+    margin-bottom: 0;
+  }
+}
+/* Desktop */
+@media only screen and (min-width: 961px) {
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+footer p {
+  margin: 0;
+}
+
+footer .social-icons {
+  display: flex;
+  justify-items: center;
+  justify-content: center;
+}
+
+footer .social-icons a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 0.5rem;
+}
+footer .social-icons div {
+  background-color: transparent;
+  margin: 2px;
+  cursor: pointer;
+}
+
+footer .social-icons img {
+  width: 24px;
+  height: 24px;
+}
+
+.social-icon a:hover img {
+  transform: scale(1.1);
+}

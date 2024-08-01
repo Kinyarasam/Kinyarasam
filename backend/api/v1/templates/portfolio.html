@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/index.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/png/logo-black.png') }}" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <title>Kinyarasam</title>
+  </head>
+  <body>
+    <header class="logo">
+      <div class="container">
+        <div class="profile">
+          <img src="../static/images/png/logo-black.png" alt="Kinyarasam">
+          <h1>{{ name }}</h1>
+          <h2>{{ tagline }}</h2>
+          <p>{{ description }}</p>
+          <div class="buttons contact">
+            <button class="icon-button">💬</button>
+            <button class="icon-button">📞</button>
+            <button class="icon-button">🎥</button>
+
+          </div>
+        </div>
+      </div>
+    </header>
+    <a href="/cv/resume/download" class="download-button" download>
+      <button class="icon-button">
+        <i class="fas fa-file-download"></i> Download CV
+      </button>
+    </a>
+    <main>
+      <section>
+        <div class="container">
+          <h2>Explore Kinyarasam's Masterpieces.</h2>
+          <div class="grid">
+            {% for project in projects %}
+            <div class="card">
+              <img src="{{ project.image }}" alt="project.title">
+              <div class="content">
+                <h3>{{ project.title }}</h3>
+                <p>{{ project.description }}</p>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+    </section>
+    <section style="background-color: #f8f9fa;">
+      {% if skills %}
+        <div class="container">
+          <h2>Kinyarasam's Mastery of the Digital Realm</h2>
+          <div class="grid">
+            {% for skill in skills %}
+              <div class="card skill-card">
+                <div class="content">
+                    <svg class="icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      {{ skill.icon | safe }}
+                    </svg>
+                    <h3>{{ skill.title }}</h3>
+                    <p>{{ skill.description }}</p>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+    </section>
+</main>
+<footer>
+    <div class="container">
+        <p>&copy; 2024 Kinyarasam. All rights reserved.</p>
+        <div class="social-icons">
+          {% for social in socials %}
+            <div class="social-icon">
+              <a href="{{ social.url }}" target="_blank" rel="noopener noreferrer" title="Connect with me on {{ social.name }}">
+                <img src="{{ url_for('static', filename=social.icon) }}" alt="Connect on {{ social.name }}" />
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+    </div>
+</footer>
+  </body>
+</html>
