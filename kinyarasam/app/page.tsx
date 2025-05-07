@@ -301,7 +301,7 @@ export default function Home() {
             { name: "React", value: 0.85 },
             { name: "Node.js", value: 0.8 },
           ],
-          technologies: ["JavaScript", "TypeScript", "React", "Next.js", "Node.js"],
+          technologies: ["Golang", "Java", "C", "Python", "Arduino", "JavaScript", "TypeScript", "React", "Next.js", "Node.js"],
           contact: {
             email: "skinyara.30@gmail.com",
             linkedin: "linkedin.com/in/kinyarasam",
@@ -1016,6 +1016,44 @@ export default function Home() {
         </section>
 
       </main>
+
+      <footer className="relative w-full border-t py-6 overflow-hidden">
+        <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+        <div className="container flex flex-col items-center justify-between gap-4 md:flex-row">
+          <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
+            © {new Date().getFullYear()} Samuel Gachigo Kinyara. All rights reserved.
+          </p>
+          <div className="flex gap-4">
+            <Link href="https://github.com/kinyarasam" aria-label="GitHub">
+              <motion.div
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 hover:bg-primary/20 transition-colors"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Github className="h-5 w-5 text-primary" />
+              </motion.div>
+            </Link>
+            <Link href="https://www.linkedin.com/in/kinyara-samuel-gachigo-885b151a5/" aria-label="LinkedIn">
+              <motion.div
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 hover:bg-primary/20 transition-colors"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Linkedin className="h-5 w-5 text-primary" />
+              </motion.div>
+            </Link>
+            <Link href="mailto:samgkdev@gmail.com" aria-label="Email">
+              <motion.div
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 hover:bg-primary/20 transition-colors"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Mail className="h-5 w-5 text-primary" />
+              </motion.div>
+            </Link>
+          </div>
+        </div>
+      </footer>
     </div>
   )
 }
