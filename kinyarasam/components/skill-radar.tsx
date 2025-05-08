@@ -13,6 +13,11 @@ export function SkillRadar() {
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
+    // Add this near the top of the useEffect hook
+    const checkMobile = () => {
+      return window.innerWidth < 768
+    }
+
     // Set canvas dimensions
     const setCanvasDimensions = () => {
       const devicePixelRatio = window.devicePixelRatio || 1
@@ -20,10 +25,10 @@ export function SkillRadar() {
       canvas.width = rect.width * devicePixelRatio
       canvas.height = rect.height * devicePixelRatio
       ctx.scale(devicePixelRatio, devicePixelRatio)
+
     }
 
     setCanvasDimensions()
-    window.addEventListener("resize", setCanvasDimensions)
 
     // Skills data
     const skills = [
@@ -35,15 +40,22 @@ export function SkillRadar() {
       { name: "Cloud", value: 0.65 },
       { name: "Python", value: 0.6 },
       { name: "5G", value: 0.55 },
+      { name: "Backend", value: 0.9 },
+      { name: "Devops", value: 0.9 },
+      { name: "C", value: 0.7 },
     ]
 
     // Draw radar chart
     const drawRadar = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
+      const scaleFactor = checkMobile() ? 7 : 2
 
-      const centerX = canvas.width / 2
-      const centerY = canvas.height / 2
-      const radius = Math.min(centerX, centerY) * 0.8
+      const centerX = canvas.width / scaleFactor
+      const centerY = canvas.height / scaleFactor
+
+      // Adjust radius for small screens
+      const isMobile = window.innerWidth < 768
+      const radius = Math.min(centerX, centerY) * (isMobile ? 0.65 : 0.8)
 
       // Draw circles
       const numCircles = 4
@@ -60,6 +72,10 @@ export function SkillRadar() {
       const numAxes = skills.length
       const angleStep = (Math.PI * 2) / numAxes
 
+      // Responsive font size based on screen size
+      const fontSize = Math.max(8, Math.min(10, canvas.width / 30))
+      ctx.font = `${fontSize}px sans-serif`
+
       for (let i = 0; i < numAxes; i++) {
         const angle = i * angleStep
 
@@ -69,13 +85,21 @@ export function SkillRadar() {
         ctx.strokeStyle = "rgba(99, 102, 241, 0.3)"
         ctx.stroke()
 
-        // Draw skill name
-        const textX = centerX + Math.cos(angle) * (radius + 10)
-        const textY = centerY + Math.sin(angle) * (radius + 10)
+        // Improved text positioning for mobile
+        const textDistance = radius + (isMobile ? 15 : 10)
+        const textX = centerX + Math.cos(angle) * textDistance
+        const textY = centerY + Math.sin(angle) * textDistance
+
+        // Adjust text alignment based on position to prevent cutoff
+        if (Math.cos(angle) > 0.5) {
+          ctx.textAlign = "left"
+        } else if (Math.cos(angle) < -0.5) {
+          ctx.textAlign = "right"
+        } else {
+          ctx.textAlign = "center"
+        }
 
         ctx.fillStyle = "rgba(99, 102, 241, 0.8)"
-        ctx.font = "10px sans-serif"
-        ctx.textAlign = "center"
         ctx.textBaseline = "middle"
         ctx.fillText(skills[i].name, textX, textY)
       }
@@ -109,24 +133,30 @@ export function SkillRadar() {
         const pointY = centerY + Math.sin(angle) * radius * value
 
         ctx.beginPath()
-        ctx.arc(pointX, pointY, 4, 0, Math.PI * 2)
+        ctx.arc(pointX, pointY, isMobile ? 3 : 4, 0, Math.PI * 2)
         ctx.fillStyle = "rgba(99, 102, 241, 1)"
         ctx.fill()
       }
     }
 
     drawRadar()
-    window.addEventListener("resize", drawRadar)
+
+    // Handle resize
+    const handleResize = () => {
+      setCanvasDimensions()
+      drawRadar()
+    }
+
+    window.addEventListener("resize", handleResize)
 
     return () => {
-      window.removeEventListener("resize", setCanvasDimensions)
-      window.removeEventListener("resize", drawRadar)
+      window.removeEventListener("resize", handleResize)
     }
   }, [])
 
   return (
     <motion.div
-      className="w-full aspect-square max-w-[300px] mx-auto"
+      className="w-full aspect-square max-w-[300px] sm:max-w-[300px] mx-auto px-2"
       initial={{ opacity: 0, scale: 0.8 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}

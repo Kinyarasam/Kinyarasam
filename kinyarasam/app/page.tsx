@@ -27,6 +27,7 @@ interface AnimatedBadgeProps {
   children: React.ReactNode
   delay?: number
 }
+
 function AnimatedBadge({ children, delay = 0 }: AnimatedBadgeProps) {
   return (
     <motion.div
@@ -336,8 +337,8 @@ export default function Home() {
             tags: ["Python", "React", "WebSockets", "Network"],
             image: "/placeholder.svg?height=200&width=300",
             category: "telecom",
-            demoUrl: "https://example.com/demo",
-            githubUrl: "https://github.com/example/project",
+            demoUrl: "",
+            githubUrl: "",
           },
           {
             id: 2,
@@ -346,8 +347,8 @@ export default function Home() {
             tags: ["Next.js", "Node.js", "MongoDB", "Stripe"],
             image: "/placeholder.svg?height=200&width=300",
             category: "web",
-            demoUrl: "https://example.com/demo",
-            githubUrl: "https://github.com/example/project",
+            demoUrl: "",
+            githubUrl: "",
           },
         ])
       } finally {
@@ -538,7 +539,7 @@ export default function Home() {
                     <span>Telecom Expert</span>
                   </div>
                   <motion.h1
-                    className="text-4xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none"
+                    className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.2, duration: 0.5 }}
@@ -558,7 +559,8 @@ export default function Home() {
                   </motion.div>
                 </div>
                 <motion.div
-                  className="flex flex-col gap-2 min-[400px]:flex-row"
+                  // className="flex flex-col gap-2 min-[400px]:flex-row"
+                  className="flex gap-2 flex-row"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6, duration: 0.5 }}
@@ -568,7 +570,7 @@ export default function Home() {
                     className="inline-flex items-center justify-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
                   >
                     View My Work
-                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1 sm:inline-block" />
                   </a>
                   <a
                     href="#blog"
@@ -618,9 +620,9 @@ export default function Home() {
           <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
         </section>
 
-        <section id="about" ref={sectionRefs.about} className="relative w-full py-12 md:py-24 lg:py-32 overflow-hidden">
+        <section id="about" ref={sectionRefs.about} className="relative w-full py-12 md:py-24 lg:py-32 xl:py-48 overflow-hidden">
           <CircuitBackground className="absolute inset-0 -z-10 opacity-10" />
-          <div className="container px-4 md:px-6">
+          <div className="container px-4 md:px-6 mx-auto">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <motion.div
                 className="space-y-2"
@@ -689,11 +691,14 @@ export default function Home() {
                       <Card key={index} className="bg-background/50 backdrop-blur-sm border-primary/20">
                         <CardHeader className="p-4">
                           <CardTitle className="text-base flex items-center">
-                            {item.icon === "Code" ? (
-                              <Code className="mr-2 h-4 w-4 text-primary" />
-                            ) : (
-                              <Wifi className="mr-2 h-4 w-4 text-primary" />
-                            )}
+                            <span className="pr">
+                              {item.icon === "Wifi" && (
+                                <Wifi className="mr-2 h-4 w-4 text-primary" />
+                              )}
+                              {item.icon === "Code" && (
+                                <Code className="mr-2 h-4 w-4 text-primary" />
+                              )}
+                            </span>
                             {item.title}
                           </CardTitle>
                         </CardHeader>
@@ -732,7 +737,7 @@ export default function Home() {
 
         <section id="projects" ref={sectionRefs.projects} className="relative w-full py-12 md:py-24 lg:py-32">
           <WavyBackground className="absolute inset-0 -z-10" />
-          <div className="container px-4 md:px-6">
+          <div className="container px-4 md:px-6 mx-auto">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <motion.div
                 className="space-y-2"
@@ -785,7 +790,7 @@ export default function Home() {
 
         <section id="blog" ref={sectionRefs.blog} className="relative w-full py-12 md:py-24 lg:py-32 overflow-hidden">
           <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-          <div className="container px-4 md:px-6">
+          <div className="container px-4 md:px-6 mx-auto">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <motion.div
                 className="space-y-2"
@@ -829,8 +834,8 @@ export default function Home() {
         </section>
 
         <section id="experience" ref={sectionRefs.experience} className="relative w-full py-12 md:py-24 lg:py-32">
-          <CircuitBackground className="absolute inset-0 -z-10 opacity-5" />
-          <div className="container px-4 md:px-6">
+          <CircuitBackground className="absolute inset-0 -z-10 opacity-5 w-full mx-auto" />
+          <div className="container px-4 md:px-6 mx-auto">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <motion.div
                 className="space-y-2"
@@ -871,7 +876,7 @@ export default function Home() {
 
         <section id="contact" ref={sectionRefs.contact} className="relative w-full py-12 md:py-24 lg:py-32">
           <WavyBackground className="absolute inset-0 -z-10" />
-          <div className="container px-4 md:px-6">
+          <div className="container px-4 md:px-6 mx-auto">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <motion.div
                 className="space-y-2"
@@ -1019,7 +1024,7 @@ export default function Home() {
 
       <footer className="relative w-full border-t py-6 overflow-hidden">
         <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
-        <div className="container flex flex-col items-center justify-between gap-4 md:flex-row">
+        <div className="container flex flex-col items-center justify-between gap-4 md:flex-row mx-auto">
           <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
             © {new Date().getFullYear()} Samuel Gachigo Kinyara. All rights reserved.
           </p>
