@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { ArrowRight, Code, Github, Linkedin, Mail, Menu, Terminal, Wifi } from "lucide-react"
+import { ArrowRight, Code, Github, Linkedin, LucideTwitter, Mail, Menu, Terminal, Wifi } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { useEffect, useMemo, useRef, useState } from "react"
@@ -736,7 +736,9 @@ export default function Home() {
         </section>
 
         <section id="projects" ref={sectionRefs.projects} className="relative w-full py-12 md:py-24 lg:py-32">
-          <WavyBackground className="absolute inset-0 -z-10" />
+          <div className="absolute inset-0 -z-10 overflow-hidden">
+            <WavyBackground className="h-full w-full" />
+          </div>
           <div className="container px-4 md:px-6 mx-auto">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <motion.div
@@ -874,8 +876,10 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="contact" ref={sectionRefs.contact} className="relative w-full py-12 md:py-24 lg:py-32">
-          <WavyBackground className="absolute inset-0 -z-10" />
+        <section id="contact" ref={sectionRefs.contact} className="relative w-full py-12 md:py-24 lg:py-32 overflow-hidden">
+          <div className="absolute inset-0 -z-10 overflow-hidden">
+            <WavyBackground className="h-full w-full" />
+          </div>
           <div className="container px-4 md:px-6 mx-auto">
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <motion.div
@@ -939,6 +943,14 @@ export default function Home() {
                             <Github className="h-5 w-5 text-primary" />
                           </div>
                           <span>{profile.contact.github}</span>
+                        </motion.div>
+                      )}
+                      {profile.contact.twitter && (
+                        <motion.div className="flex items-center gap-2 group" whileHover={{ x: 5 }}>
+                          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                            <LucideTwitter className="h-5 w-5 text-primary" />
+                          </div>
+                          <span>{profile.contact.twitter}</span>
                         </motion.div>
                       )}
                     </>

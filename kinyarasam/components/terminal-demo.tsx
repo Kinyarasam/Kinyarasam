@@ -6,7 +6,7 @@ import { motion } from "framer-motion"
 export function TerminalDemo() {
   const [text, setText] = useState("")
   const fullText =
-    "const developer = {\n  name: 'Kinyara Samuel Gachigo',\n  skills: ['Software Engineering', 'Telecommunications'],\n  passion: 'Building innovative solutions'\n};"
+    "const developer = {\n  name: 'Kinyara Samuel Gachigo',\n  location: {\n    'country': 'Kenya',\n    'city': 'Nairobi'  \n  },\n  skills: ['Software Engineering', 'Telecommunications'],\n  passion: 'Building innovative solutions'\n};"
 
   useEffect(() => {
     let currentIndex = 0
