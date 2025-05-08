@@ -14,7 +14,8 @@ import { TerminalDemo } from "@/components/terminal-demo"
 import { FloatingNav } from "@/components/floating-nav"
 import { HeroParticles } from "@/components/hero-particles"
 import { ChatBot } from "@/components/chat-bot"
-import { apiService, type Project, type Experience, type BlogPost, type Profile } from "@/services/api"
+import { apiService } from "@/services/api"
+import { type Project, type Experience, type BlogPost, type Profile } from '@/services/interface'
 import { Button } from "@/components/ui/button"
 import { CircuitBackground } from "@/components/circuit-background"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -277,40 +278,41 @@ export default function Home() {
       try {
         setProfileLoading(true)
         const data = await apiService.getProfile()
+        console.log(data.bio)
         setProfile(data)
       } catch (error) {
         console.error("Error fetching profile:", error)
         // Set default profile data when API fails
-        setProfile({
-          name: "Kinyara Samuel Gachigo",
-          title: "Software Engineer & Telecom Expert",
-          bio: "I'm a software engineer with a background in telecommunications.",
-          expertise: [
-            {
-              title: "Software Development",
-              description: "Full-stack development with modern frameworks and cloud technologies.",
-              icon: "Code",
-            },
-            {
-              title: "Telecommunications",
-              description: "Network protocols, VoIP systems, and wireless communications.",
-              icon: "Wifi",
-            },
-          ],
-          skills: [
-            { name: "JavaScript", value: 0.9 },
-            { name: "React", value: 0.85 },
-            { name: "Node.js", value: 0.8 },
-          ],
-          technologies: ["Golang", "Java", "C", "Python", "Arduino", "JavaScript", "TypeScript", "React", "Next.js", "Node.js"],
-          contact: {
-            email: "skinyara.30@gmail.com",
-            linkedin: "linkedin.com/in/kinyarasam",
-            github: "github.com/kinyarasam",
-            twitter: "twitter.com/kinyarasam",
-          },
-          resumeUrl: "/api/resume",
-        })
+        // setProfile({
+        //   name: "Kinyara Samuel Gachigo",
+        //   title: "Software Engineer & Telecom Expert",
+        //   bio: "I'm a software engineer with a background in telecommunications.",
+        //   expertise: [
+        //     {
+        //       title: "Software Development",
+        //       description: "Full-stack development with modern frameworks and cloud technologies.",
+        //       icon: "Code",
+        //     },
+        //     {
+        //       title: "Telecommunications",
+        //       description: "Network protocols, VoIP systems, and wireless communications.",
+        //       icon: "Wifi",
+        //     },
+        //   ],
+        //   skills: [
+        //     { name: "JavaScript", value: 0.9 },
+        //     { name: "React", value: 0.85 },
+        //     { name: "Node.js", value: 0.8 },
+        //   ],
+        //   technologies: ["Golang", "Java", "C", "Python", "Arduino", "JavaScript", "TypeScript", "React", "Next.js", "Node.js"],
+        //   contact: {
+        //     email: "skinyara.30@gmail.com",
+        //     linkedin: "linkedin.com/in/kinyarasam",
+        //     github: "github.com/kinyarasam",
+        //     twitter: "twitter.com/kinyarasam",
+        //   },
+        //   resumeUrl: "/api/resume",
+        // })
       } finally {
         setProfileLoading(false)
       }
@@ -359,39 +361,39 @@ export default function Home() {
     fetchProjects()
   }, [projectCategory])
 
-  // Fetch experience data
-  useEffect(() => {
-    const fetchExperience = async () => {
-      try {
-        setExperienceLoading(true)
-        const data = await apiService.getExperience()
-        setExperience(data)
-      } catch (error) {
-        console.error("Error fetching experience:", error)
-      } finally {
-        setExperienceLoading(false)
-      }
-    }
+  // // Fetch experience data
+  // useEffect(() => {
+  //   const fetchExperience = async () => {
+  //     try {
+  //       setExperienceLoading(true)
+  //       const data = await apiService.getExperience()
+  //       setExperience(data)
+  //     } catch (error) {
+  //       console.error("Error fetching experience:", error)
+  //     } finally {
+  //       setExperienceLoading(false)
+  //     }
+  //   }
 
-    fetchExperience()
-  }, [])
+  //   fetchExperience()
+  // }, [])
 
-  // Fetch blog posts
-  useEffect(() => {
-    const fetchBlogPosts = async () => {
-      try {
-        setBlogLoading(true)
-        const data = await apiService.getBlogPosts({ limit: 3 })
-        setBlogPosts(data)
-      } catch (error) {
-        console.error("Error fetching blog posts:", error)
-      } finally {
-        setBlogLoading(false)
-      }
-    }
+  // // Fetch blog posts
+  // useEffect(() => {
+  //   const fetchBlogPosts = async () => {
+  //     try {
+  //       setBlogLoading(true)
+  //       const data = await apiService.getBlogPosts({ limit: 3 })
+  //       setBlogPosts(data)
+  //     } catch (error) {
+  //       console.error("Error fetching blog posts:", error)
+  //     } finally {
+  //       setBlogLoading(false)
+  //     }
+  //   }
 
-    fetchBlogPosts()
-  }, [])
+  //   fetchBlogPosts()
+  // }, [])
 
   // Form state for contact form
   const [contactForm, setContactForm] = useState({
@@ -636,16 +638,16 @@ export default function Home() {
                   About Me
                 </div>
                 <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">The Tech Behind the Engineer</h2>
-                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  {profileLoading ? (
-                    <>
-                      <Skeleton className="h-6 w-full mx-auto max-w-[700px]" />
-                      <Skeleton className="h-6 w-5/6 mx-auto max-w-[650px] mt-2" />
-                    </>
-                  ) : (
-                    profile?.bio || "Loading bio..."
-                  )}
-                </p>
+                {profileLoading ? (
+                  <>
+                    <Skeleton className="h-6 w-full mx-auto max-w-[700px]" />
+                    <Skeleton className="h-6 w-5/6 mx-auto max-w-[650px] mt-2" />
+                  </>
+                ) : (
+                  <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                    {profile?.bio || "Loading bio..."}
+                  </p>
+                )}
               </motion.div>
             </div>
             <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">

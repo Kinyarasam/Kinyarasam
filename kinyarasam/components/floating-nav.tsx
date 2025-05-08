@@ -43,7 +43,7 @@ export function FloatingNav({ navItems, activeSection }: FloatingNavProps) {
                   href={item.href}
                   className={`relative rounded-md px-3 py-2 text-sm font-medium transition-colors ${
                     activeSection === item.href.substring(1)
-                      ? "text-primary bg-primary/10"
+                      ? "text-primary bg-primary/50"
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                   onClick={() => setOpen(false)}

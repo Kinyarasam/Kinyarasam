@@ -1,110 +1,58 @@
 import { API_ENDPOINTS } from "@/app/config"
-
-// Types for our API responses
-export interface Profile {
-  name: string
-  title: string
-  bio: string
-  expertise: {
-    title: string
-    description: string
-    icon: string
-  }[]
-  skills: {
-    name: string
-    value: number
-  }[]
-  technologies: string[]
-  contact: {
-    email: string
-    linkedin: string
-    github: string
-    twitter: string
-  }
-  resumeUrl: string
-}
-
-export interface Project {
-  id: number
-  title: string
-  description: string
-  tags: string[]
-  image: string
-  category: string
-  demoUrl: string
-  githubUrl: string
-}
-
-export interface Experience {
-  id: number
-  title: string
-  organization: string
-  period: string
-  description: string
-}
-
-export interface BlogPost {
-  id: number
-  title: string
-  slug: string
-  excerpt: string
-  publishedAt: string
-  category: string
-  image?: string
-  featuredImage: string
-  readingTime?: string
-  tags?: string[]
-  content?: string
-  featured?: boolean
-}
-
-export interface BlogPostDetail extends BlogPost {
-  content: string
-  author: {
-    name: string
-    avatar: string
-    bio: string
-  }
-  images: string[]
-  video?: string
-  codeSnippet?: string
-  tableOfContents: {
-    id: string
-    title: string
-    level: number
-  }[]
-  relatedPosts: {
-    title: string
-    slug: string
-    excerpt: string
-    category: string
-    image: string
-  }[]
-}
-
-export interface ContactFormData {
-  name: string
-  email: string
-  message: string
-}
+import { ApiResponse, BlogPost, BlogPostDetail, ContactFormData, Experience, Profile, Project } from "./interface"
 
 // API service functions
 export const apiService = {
   // Profile
   getProfile: async (): Promise<Profile> => {
-    const response = await fetch(API_ENDPOINTS.PROFILE)
-    if (!response.ok) throw new Error("Failed to fetch profile")
-    return response.json()
+    try {
+      const response = await fetch(API_ENDPOINTS.PROFILE);
+      
+      if (!response.ok) {
+        // Handle HTTP errors
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Failed to fetch profile');
+      }
+
+      const data: ApiResponse<Profile> = await response.json();
+      
+      // Validate response structure
+      if (!data.success || !data.data) {
+        throw new Error('Invalid response structure');
+      }
+
+      return data.data;
+    } catch (error) {
+      console.error('Error fetching profile:', error);
+      throw error;
+    }
   },
 
   // Projects
   getProjects: async (category?: string): Promise<Project[]> => {
-    const url =
-      category && category !== "all" ? `${API_ENDPOINTS.PROJECTS}?category=${category}` : API_ENDPOINTS.PROJECTS
+    try {
+      const url =
+        category && category !== "all" ? `${API_ENDPOINTS.PROJECTS}?category=${category}` : API_ENDPOINTS.PROJECTS
 
-    const response = await fetch(url)
-    if (!response.ok) throw new Error("Failed to fetch projects")
-    return response.json()
+      const response = await fetch(url)
+      if (!response.ok) {
+        // Handle HTTP errors
+        const errorData = await response.json().catch(() => ({}))
+        throw new Error(errorData.message || "Failed to fetch projects")
+      }
+
+      const data: ApiResponse<Project[]> = await response.json()
+
+      // Validate response structure
+      if (!data.success || !data.data) {
+        throw new Error("Invalid response structure")
+      }
+
+      return data.data
+    } catch (error) {
+      console.error("Error fetching projects")
+      throw error;
+    }
   },
 
   // Experience
@@ -136,13 +84,13 @@ export const apiService = {
 
   getBlogPost: async (slug: string): Promise<BlogPostDetail> => {
     const response = await fetch(`${API_ENDPOINTS.BLOG}/${slug}`)
-    if (!response.ok) throw new Error("Failed to fetch blog post")
+    // if (!response.ok) throw new Error("Failed to fetch blog post")
     return response.json()
   },
 
   getBlogCategories: async (): Promise<string[]> => {
     const response = await fetch(API_ENDPOINTS.BLOG_CATEGORIES)
-    if (!response.ok) throw new Error("Failed to fetch blog categories")
+    // if (!response.ok) throw new Error("Failed to fetch blog categories")
     const data = await response.json()
     return data.categories
   },
