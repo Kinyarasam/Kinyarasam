@@ -1,10 +1,16 @@
 package utils
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
+	"io"
 	"net/http"
 	"reflect"
+	"regexp"
+	"strings"
 
+	"github.com/go-playground/validator/v10"
 	"github.com/google/uuid"
 	"github.com/kinyarasam/kinyarasam/internal/core/models"
 	"github.com/sirupsen/logrus"
@@ -99,4 +105,113 @@ func HandleUnprocessableEntityError(w http.ResponseWriter, err string) {
 func LogStruct(st interface{}) {
 	stJson, _ := json.Marshal(st)
 	logrus.Infof("%s: %s", reflect.TypeOf(st).String(), stJson)
+}
+
+type CustomValidationParams struct {
+	ErrorMessage string
+}
+
+func ValidateHTTPRequestPayload(
+	w http.ResponseWriter,
+	r *http.Request,
+	serializer interface{},
+	params ...CustomValidationParams,
+) error {
+	serializationErrors, err := UnmarshallJSONFromRequest(r, serializer)
+	if err != nil {
+		var message string
+
+		if len(params) > 0 {
+			message = params[0].ErrorMessage
+		} else {
+			message = "Invalid request"
+		}
+		LogStruct(serializationErrors)
+		HandleBadRequest(w, message, serializationErrors)
+		return err
+	}
+
+	return nil
+}
+
+func UnmarshallJSONFromRequest(
+	r *http.Request,
+	data interface{},
+) ([]models.Error, error) {
+	var serializerErrors []models.Error
+
+	// Read and re-set the body so it can be read again
+	bodyBytes, err := io.ReadAll(r.Body)
+	if err != nil {
+		logrus.WithError(err).Error("Failed to read request body")
+		return nil, err
+	}
+	r.Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
+
+	// Decode JSON
+	if err := json.Unmarshal(bodyBytes, data); err != nil {
+		logrus.WithError(err).Error("Failed to decode JSON")
+		decodeErr := models.Error{
+			Key:   "InvalidJsonPayload",
+			Error: "Invalid JSON format",
+		}
+		serializerErrors = append(serializerErrors, decodeErr)
+		return serializerErrors, err
+	}
+	// err := json.NewDecoder(r.Body).Decode(&data)
+	// if err != nil {
+	// 	logrus.WithError(err).Logger.Error("error decoding json")
+	// 	decodeErr := models.Error{Key: "InvalidJsonPayload", Error: fmt.Sprintf("%s", err)}
+	// 	serializerErrors = append(serializerErrors, decodeErr)
+	// 	return serializerErrors, err
+	// }
+
+	// Validate struct fields
+	validate := validator.New(validator.WithRequiredStructEnabled())
+	errs := validate.Struct(data)
+
+	if errs != nil {
+		for _, err := range errs.(validator.ValidationErrors) {
+			re := regexp.MustCompile(`'([^']*)'`)
+			matches := re.FindAllStringSubmatch(
+				strings.Split(fmt.Sprintf("%s", err), "Error:")[1],
+				-1,
+			)
+
+			validationField := matches[0][1]
+			validationTag := matches[1][1]
+
+			errorMessage := strings.Split(fmt.Sprintf("%s", err), "Error:")[1]
+			switch validationTag {
+
+			case "required":
+				errorMessage = fmt.Sprintf("%s is a required field", validationField)
+
+			case "oneof":
+				errorMessage = fmt.Sprintf(
+					"%s is required to be one of these options: [%s]",
+					validationField,
+					err.Param(),
+				)
+
+			case "url":
+				errorMessage = fmt.Sprintf("%s is required to be a valid URL", validationField)
+
+			case "strong_password":
+				errorMessage = fmt.Sprintf(
+					"%s is required to contain atleast 8 characters, an uppercase character and a special character",
+					validationField,
+				)
+			}
+
+			serializationError := models.Error{
+				Key:   err.Field(),
+				Error: errorMessage,
+			}
+			serializerErrors = append(serializerErrors, serializationError)
+		}
+		return serializerErrors, errs
+	}
+
+	return nil, nil
 }

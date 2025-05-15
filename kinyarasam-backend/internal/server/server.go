@@ -1,10 +1,13 @@
 package server
 
 import (
+	"context"
 	"fmt"
 	"net/http"
 
 	"github.com/kinyarasam/kinyarasam/internal/core/config"
+	"github.com/kinyarasam/kinyarasam/internal/core/pkg"
+	"github.com/kinyarasam/kinyarasam/internal/core/pkg/postgres"
 	"github.com/rs/cors"
 	"github.com/sirupsen/logrus"
 )
@@ -28,6 +31,25 @@ func RunServer() (err error) {
 	}
 
 	logrus.Infof("Starting HTTPS server on port %s", webServerConfig.Port)
+
+	// Initialize the database
+	err = postgres.InitDB(webServerConfig.PostgresDSN)
+	if err != nil {
+		logrus.WithField("Error", err).Error("Error initializing postgres db")
+		return err
+	}
+
+	if err := pkg.Initialize(webServerConfig.Service); err != nil {
+		logrus.WithError(err).Error("Failed to initialize services")
+		return err
+	}
+
+	// Initialize and seed admin
+	err = pkg.Service.AdminDao.SeedAdmin(context.Background())
+	if err != nil {
+		logrus.WithError(err).Error("Failed to seed admin user")
+		return err
+	}
 
 	server := NewServer(webServerConfig)
 	server.Router.InitializeRoutes(webServerConfig)
