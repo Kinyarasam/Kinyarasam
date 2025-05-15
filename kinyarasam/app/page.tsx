@@ -361,39 +361,39 @@ export default function Home() {
     fetchProjects()
   }, [projectCategory])
 
-  // // Fetch experience data
-  // useEffect(() => {
-  //   const fetchExperience = async () => {
-  //     try {
-  //       setExperienceLoading(true)
-  //       const data = await apiService.getExperience()
-  //       setExperience(data)
-  //     } catch (error) {
-  //       console.error("Error fetching experience:", error)
-  //     } finally {
-  //       setExperienceLoading(false)
-  //     }
-  //   }
+  // Fetch experience data
+  useEffect(() => {
+    const fetchExperience = async () => {
+      try {
+        setExperienceLoading(true)
+        const data = await apiService.getExperience()
+        setExperience(data)
+      } catch (error) {
+        console.error("Error fetching experience:", error)
+      } finally {
+        setExperienceLoading(false)
+      }
+    }
 
-  //   fetchExperience()
-  // }, [])
+    fetchExperience()
+  }, [])
 
-  // // Fetch blog posts
-  // useEffect(() => {
-  //   const fetchBlogPosts = async () => {
-  //     try {
-  //       setBlogLoading(true)
-  //       const data = await apiService.getBlogPosts({ limit: 3 })
-  //       setBlogPosts(data)
-  //     } catch (error) {
-  //       console.error("Error fetching blog posts:", error)
-  //     } finally {
-  //       setBlogLoading(false)
-  //     }
-  //   }
+  // Fetch blog posts
+  useEffect(() => {
+    const fetchBlogPosts = async () => {
+      try {
+        setBlogLoading(true)
+        const data = await apiService.getBlogPosts({ limit: 3 })
+        setBlogPosts(data)
+      } catch (error) {
+        console.error("Error fetching blog posts:", error)
+      } finally {
+        setBlogLoading(false)
+      }
+    }
 
-  //   fetchBlogPosts()
-  // }, [])
+    fetchBlogPosts()
+  }, [])
 
   // Form state for contact form
   const [contactForm, setContactForm] = useState({

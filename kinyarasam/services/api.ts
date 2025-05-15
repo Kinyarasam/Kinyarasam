@@ -57,9 +57,26 @@ export const apiService = {
 
   // Experience
   getExperience: async (): Promise<Experience[]> => {
-    const response = await fetch(API_ENDPOINTS.EXPERIENCE)
-    if (!response.ok) throw new Error("Failed to fetch experience")
-    return response.json()
+    try {
+      const response = await fetch(API_ENDPOINTS.EXPERIENCE)
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}))
+        throw new Error(errorData.message || "Failed to fetch experience")
+      }
+
+      const data: ApiResponse<Experience[]> = await response.json();
+
+      // Validate response structure
+      if (!data.success || !data.data) {
+        throw new Error('Invalid response structure');
+      }
+
+      return data.data
+    } catch(error) {
+      console.error("Error fetching Experience:", error)
+      throw error
+    }
   },
 
   // Blog
@@ -77,22 +94,72 @@ export const apiService = {
       }
     }
 
-    const response = await fetch(url)
-    if (!response.ok) throw new Error("Failed to fetch blog posts")
-    return response.json()
+    try {
+      const response = await fetch(url)
+      
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}))
+        throw new Error(errorData.message || "Failed to fetch blog posts")
+      }
+
+      const data: ApiResponse<BlogPost[]> = await response.json();
+
+      // Validate response structure
+      if (!data.success || !data.data) {
+        throw new Error('Invalid response structure');
+      }
+
+      return data.data
+    } catch(error) {
+      console.error("Error fetching blog posts:", error)
+      throw error
+    }
   },
 
   getBlogPost: async (slug: string): Promise<BlogPostDetail> => {
-    const response = await fetch(`${API_ENDPOINTS.BLOG}/${slug}`)
-    // if (!response.ok) throw new Error("Failed to fetch blog post")
-    return response.json()
+    try {
+      const response = await fetch(`${API_ENDPOINTS.BLOG}/${slug}`)
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}))
+        throw new Error(errorData.message || "FFailed to fetch blog post")
+      }
+
+      const data: ApiResponse<BlogPostDetail> = await response.json();
+
+      // Validate response structure
+      if (!data.success || !data.data) {
+        throw new Error('Invalid response structure');
+      }
+
+      return data.data
+    } catch(error) {
+      console.error("Error fetching blog posts:", error)
+      throw error
+    }
   },
 
   getBlogCategories: async (): Promise<string[]> => {
-    const response = await fetch(API_ENDPOINTS.BLOG_CATEGORIES)
-    // if (!response.ok) throw new Error("Failed to fetch blog categories")
-    const data = await response.json()
-    return data.categories
+    try {
+      const response = await fetch(API_ENDPOINTS.BLOG_CATEGORIES)
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}))
+        throw new Error(errorData.message || "FFailed to fetch blog post")
+      }
+
+      const data: ApiResponse<string[]> = await response.json();
+
+      // Validate response structure
+      if (!data.success || !data.data) {
+        throw new Error('Invalid response structure');
+      }
+
+      return data.data
+    } catch(error) {
+      console.error("Error fetching blog posts:", error)
+      throw error
+    }
   },
 
   // Contact
