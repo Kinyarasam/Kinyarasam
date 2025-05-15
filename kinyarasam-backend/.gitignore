@@ -1,0 +1,5 @@
+.idea/
+.env
+.vscode/
+.air.toml
+tmp
