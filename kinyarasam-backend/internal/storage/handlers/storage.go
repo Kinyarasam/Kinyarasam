@@ -10,6 +10,12 @@ func UploadFile(
 	w http.ResponseWriter,
 	r *http.Request,
 ) {
+	user, ok := utils.GetRequestUser(w, r)
+	if !ok {
+		return
+	}
+
+	utils.LogStruct(user)
 	response := utils.Response{
 		Message: "Successfully Uploaded file",
 		Success: true,

@@ -20,14 +20,14 @@ func LoginHandler(
 	w http.ResponseWriter,
 	r *http.Request,
 ) {
-	var loginRequest serializers.LoginRequest
+	var request serializers.LoginRequest
 
-	err := utils.ValidateHTTPRequestPayload(w, r, &loginRequest)
+	err := utils.ValidateHTTPRequestPayload(w, r, &request)
 	if err != nil {
 		return
 	}
 
-	result, err := userDaos.GetUserByPhoneNumber(r.Context(), loginRequest.PhoneNumber)
+	result, err := userDaos.GetUserByPhoneNumber(r.Context(), request.PhoneNumber)
 	if err != nil {
 		utils.HandleUnauthorized(w, "Invalid credentials")
 		return

@@ -30,7 +30,7 @@ func CreateUser(
 		return nil, errors.New(pgError.Err.Error())
 	}
 
-	newRecord := result.(models.User)
+	newRecord := result.(*models.User)
 
-	return &newRecord, nil
+	return newRecord, nil
 }

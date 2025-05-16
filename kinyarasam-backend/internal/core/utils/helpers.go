@@ -3,6 +3,7 @@ package utils
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -214,4 +215,27 @@ func UnmarshallJSONFromRequest(
 	}
 
 	return nil, nil
+}
+
+func GetRequestUserID(w http.ResponseWriter, r *http.Request) (string, bool) {
+	user, ok := GetRequestUser(w, r)
+	if !ok {
+		HandleUnauthorized(w, errors.New("unauthorized request").Error())
+		return "", false
+	}
+	return user.Id, true
+}
+
+func GetRequestUser(
+	w http.ResponseWriter,
+	r *http.Request,
+) (*models.AuthUserData, bool) {
+	userKey := StringContextKey("user")
+	user, ok := r.Context().Value(userKey).(*models.AuthUserData)
+	logrus.Info(user, ok)
+	if !ok {
+		HandleUnauthorized(w, errors.New("unauthorized request").Error())
+		return nil, false
+	}
+	return user, true
 }

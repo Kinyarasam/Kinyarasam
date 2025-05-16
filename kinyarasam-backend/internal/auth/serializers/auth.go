@@ -2,12 +2,6 @@ package serializers
 
 import "github.com/kinyarasam/kinyarasam/internal/user/models"
 
-type UserData struct {
-	Id          string `json:"id"`
-	Role        string `json:"role"`
-	PhoneNumber string `json:"phone_number"`
-}
-
 type LoginRequest struct {
 	PhoneNumber string `json:"phone_number"`
 	Password    string `json:"password"`

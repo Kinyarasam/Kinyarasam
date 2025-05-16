@@ -4,8 +4,8 @@ import (
 	"time"
 
 	"github.com/jinzhu/copier"
-	"github.com/kinyarasam/kinyarasam/internal/auth/serializers"
 	"github.com/kinyarasam/kinyarasam/internal/core/config"
+	baseModels "github.com/kinyarasam/kinyarasam/internal/core/models"
 	"github.com/kinyarasam/kinyarasam/internal/core/utils"
 	"github.com/kinyarasam/kinyarasam/internal/user/models"
 )
@@ -14,13 +14,17 @@ func GenerateAuthToken(
 	user models.User,
 	expiration time.Duration,
 ) (string, error) {
-	var cfg *config.WebServerConfig
-	var userData serializers.UserData
-
+	cfg, err := config.FromEnv()
+	if err != nil {
+		return "", err
+	}
 	secretKey := []byte(cfg.JWTSecret)
 
-	subject := user.Id
+	userData := baseModels.AuthUserData{}
 	copier.Copy(&userData, &user)
+	userData.IsAdmin = user.Role == models.Admin
+
+	subject := user.Id
 
 	customClaims := map[string]interface{}{
 		"user": userData,
@@ -32,7 +36,10 @@ func GenerateAuthToken(
 func GenerateRefreshToken(
 	user models.User,
 ) (string, error) {
-	var cfg *config.WebServerConfig
+	cfg, err := config.FromEnv()
+	if err != nil {
+		return "", err
+	}
 	refreshSecretKey := []byte(cfg.JWTRefreshSecret)
 
 	subject := user.Id
