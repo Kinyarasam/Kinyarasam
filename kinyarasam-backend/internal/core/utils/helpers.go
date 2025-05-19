@@ -232,7 +232,6 @@ func GetRequestUser(
 ) (*models.AuthUserData, bool) {
 	userKey := StringContextKey("user")
 	user, ok := r.Context().Value(userKey).(*models.AuthUserData)
-	logrus.Info(user, ok)
 	if !ok {
 		HandleUnauthorized(w, errors.New("unauthorized request").Error())
 		return nil, false

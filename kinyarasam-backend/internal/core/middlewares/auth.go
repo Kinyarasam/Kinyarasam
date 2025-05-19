@@ -62,7 +62,7 @@ func ValidateToken(tokenStr string, secretKey []byte) (*jwt.Token, error) {
 
 func GetUserFromAuthToken(token *jwt.Token) (*models.AuthUserData, error) {
 	claims, ok := token.Claims.(*models.AuthClaimsData)
-	logrus.Info(claims, ok)
+	// logrus.Info(claims, ok)
 	if !ok || !token.Valid {
 		return nil, errors.New("invalid claims format")
 	}
@@ -101,6 +101,7 @@ func validateAuthToken(
 	token, err := ValidateToken(authToken, secretKey)
 	if err != nil {
 		logrus.WithError(err).Error(err.Error())
+		return nil, err
 	}
 
 	return GetUserFromAuthToken(token)

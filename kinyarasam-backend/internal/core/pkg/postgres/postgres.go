@@ -181,3 +181,29 @@ func (dao *Postgres) BeginTransaction(
 
 	return tx, nil
 }
+
+func (dao *Postgres) GetOrCreate(
+	ctx context.Context,
+	condition interface{},
+	model interface{},
+) (interface{}, bool, *pgError) {
+	// Use reflection to create a new pointer to the type of model
+	modelPtr := reflect.New(reflect.TypeOf(model))
+
+	// Dereference the pointer and set the value
+	modelPtr.Elem().Set(reflect.ValueOf(model))
+
+	tx := dao.db.Where(condition).FirstOrCreate(modelPtr.Interface())
+
+	if tx.Error != nil {
+		errMsg := MapSQLStateToErrorMessage(tx.Error)
+		return nil, false, &errMsg
+	}
+
+	exists := false
+	if tx.RowsAffected == 0 {
+		exists = true
+	}
+
+	return modelPtr.Interface(), exists, nil
+}

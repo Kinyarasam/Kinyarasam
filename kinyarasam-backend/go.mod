@@ -39,6 +39,7 @@ require (
 
 require (
 	ariga.io/atlas-provider-gorm v0.5.1
+	github.com/cloudinary/cloudinary-go v1.7.0
 	github.com/go-playground/validator/v10 v10.26.0
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/google/uuid v1.6.0

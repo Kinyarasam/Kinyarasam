@@ -2,10 +2,13 @@ package storage
 
 import (
 	"context"
+	"errors"
 
 	"github.com/cloudinary/cloudinary-go/v2"
 	"github.com/cloudinary/cloudinary-go/v2/api/uploader"
+	"github.com/jinzhu/copier"
 	"github.com/kinyarasam/kinyarasam/internal/core/pkg/storage/serializers"
+	"github.com/kinyarasam/kinyarasam/internal/core/utils"
 	"github.com/sirupsen/logrus"
 )
 
@@ -40,25 +43,42 @@ func NewServer(config *Config) *Service {
 func (s *Service) Upload(
 	ctx context.Context,
 	request serializers.CloudinaryUploadRequest,
-) error {
-	_, err := s.Cloudinary.Upload.Upload(
+) (*serializers.CloudinaryUploadResponse, error) {
+	key := request.UserId + "/" + request.FileName
+	resp, err := s.Cloudinary.Upload.Upload(
 		ctx,
 		request.File,
 		uploader.UploadParams{
-			PublicID:     request.FileName,
+			PublicID:     key,
 			ResourceType: request.MimeType,
+			DisplayName:  request.FileName,
 		},
 	)
-	return err
+	if err != nil {
+		return nil, err
+	}
+	var response serializers.CloudinaryUploadResponse
+
+	copier.Copy(&response, &resp)
+	if response.Error.Message != "" {
+		return nil, errors.New(response.Error.Message)
+	}
+	return &response, err
 }
 
 func (s *Service) Get(
 	ctx context.Context,
-	fileKey string,
-) (interface{}, error) {
-	objectOutput, err := s.Cloudinary.Image(fileKey)
+	request *serializers.CloudinaryGetRequest,
+) (interface{}, *int64, error) {
+	objectOutput, err := s.Cloudinary.Image(request.FileKey)
+	// 	admin.AssetParams{
+	// 	PublicID: request.FileKey,
+	// })
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
-	return objectOutput, err
+	var size int64 = 0
+
+	utils.LogStruct(objectOutput)
+	return objectOutput, &size, nil
 }

@@ -36,4 +36,9 @@ type DataAccess interface {
 	BeginTransaction(
 		ctx context.Context,
 	) (*gorm.DB, error)
+	GetOrCreate(
+		ctx context.Context,
+		condition interface{},
+		model interface{},
+	) (interface{}, bool, *pgError)
 }
