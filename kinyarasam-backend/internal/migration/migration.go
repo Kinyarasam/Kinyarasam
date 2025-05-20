@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"ariga.io/atlas-provider-gorm/gormschema"
+	educationModels "github.com/kinyarasam/kinyarasam/internal/education/models"
 	storageModels "github.com/kinyarasam/kinyarasam/internal/storage/models"
 	userModels "github.com/kinyarasam/kinyarasam/internal/user/models"
 	"github.com/sirupsen/logrus"
@@ -15,6 +16,7 @@ func RunMigration() error {
 		// Add the table models here
 		userModels.User{},
 		storageModels.Files{},
+		educationModels.Education{},
 	}
 
 	stmts, err := gormschema.New("postgres").Load(models...)

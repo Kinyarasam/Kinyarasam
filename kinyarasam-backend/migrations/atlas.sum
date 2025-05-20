@@ -1,6 +1,7 @@
-h1:uTxy5u74BP51qi+CEsDjWhmSCqV6fNtv7Rr8jjD558A=
+h1:nA5kdDI4BTH7BOrZfRKGninb4RJYOpP9Mtnbn2KJdho=
 20250515114541_add-user-table.sql h1:uhLCTwpPXTGq9MQwI7YdsNw1lRd8/diptIkFjbuwUzw=
 20250515115202_user-phone-column-not-nullable.sql h1:F0hQDrMRUt/MM0zwNLDUTlKqkK+JlaK1U07ry8wQgok=
 20250515144218_update-user-table.sql h1:WoQp/VUCz5b4iItacDXTBi+4voHRQylZ2oZ2/bjCyoo=
 20250519144212_add-files-table.sql h1:LuLRLUJbFWOp9lsWa6V0wWnWYieNzARoQoZ1AoIwP+Y=
 20250519165959_update-files-table.sql h1:aA6tp9uKL6+suIIIC847wDZRcomVlSmnTx9tWFCy1OQ=
+20250520124152_add-education-table.sql h1:zwh9EadcUN7mCbXN1q8k5mU6XWt4Mz0PJjQ2TbVXnDI=

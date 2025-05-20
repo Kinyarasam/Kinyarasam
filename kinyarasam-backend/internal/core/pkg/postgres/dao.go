@@ -41,4 +41,9 @@ type DataAccess interface {
 		condition interface{},
 		model interface{},
 	) (interface{}, bool, *pgError)
+	GetPaginated(
+		ctx context.Context,
+		model interface{},
+		params *PaginationParams,
+	) (interface{}, error)
 }

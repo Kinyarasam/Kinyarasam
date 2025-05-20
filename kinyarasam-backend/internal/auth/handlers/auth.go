@@ -90,7 +90,7 @@ func RegisterHandler(
 		}
 
 		logrus.WithError(pgError.Err).Error(errorMsg)
-		postgres.Service.DAO.HardDelete(r.Context(), userModel)
+		// postgres.Service.DAO.HardDelete(r.Context(), userModel)
 		utils.HandleInternalServerError(w, errorMsg)
 		return
 	}
@@ -101,6 +101,7 @@ func RegisterHandler(
 
 	response := utils.Response{
 		Message: "User registered successfully",
+		Success: true,
 		Data: &serializers.RegisterResponse{
 			User: user,
 		},

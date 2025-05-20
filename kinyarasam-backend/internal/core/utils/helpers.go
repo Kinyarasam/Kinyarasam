@@ -9,11 +9,13 @@ import (
 	"net/http"
 	"reflect"
 	"regexp"
+	"strconv"
 	"strings"
 
 	"github.com/go-playground/validator/v10"
 	"github.com/google/uuid"
 	"github.com/kinyarasam/kinyarasam/internal/core/models"
+	"github.com/kinyarasam/kinyarasam/internal/core/pkg/postgres"
 	"github.com/sirupsen/logrus"
 )
 
@@ -127,7 +129,6 @@ func ValidateHTTPRequestPayload(
 		} else {
 			message = "Invalid request"
 		}
-		LogStruct(serializationErrors)
 		HandleBadRequest(w, message, serializationErrors)
 		return err
 	}
@@ -159,13 +160,6 @@ func UnmarshallJSONFromRequest(
 		serializerErrors = append(serializerErrors, decodeErr)
 		return serializerErrors, err
 	}
-	// err := json.NewDecoder(r.Body).Decode(&data)
-	// if err != nil {
-	// 	logrus.WithError(err).Logger.Error("error decoding json")
-	// 	decodeErr := models.Error{Key: "InvalidJsonPayload", Error: fmt.Sprintf("%s", err)}
-	// 	serializerErrors = append(serializerErrors, decodeErr)
-	// 	return serializerErrors, err
-	// }
 
 	// Validate struct fields
 	validate := validator.New(validator.WithRequiredStructEnabled())
@@ -237,4 +231,53 @@ func GetRequestUser(
 		return nil, false
 	}
 	return user, true
+}
+
+func ExtractPaginationParams(
+	r *http.Request,
+	params *postgres.PaginationParams,
+) error {
+	queryParams := r.URL.Query()
+	pageParam := queryParams.Get("page")
+	pageSizeParam := queryParams.Get("page_size")
+
+	if pageParam == "" {
+		pageParam = "1"
+	}
+	if pageSizeParam == "" {
+		pageSizeParam = "25"
+	}
+
+	page, err := strconv.Atoi(pageParam)
+	if err != nil {
+		return err
+	}
+	pageSize, err := strconv.Atoi(pageSizeParam)
+	if err != nil {
+		return err
+	}
+
+	params.Page = page
+	params.PageSize = pageSize
+	params.RouteUrl = r.URL.Path
+
+	if r.TLS != nil {
+		params.RouteUrl = fmt.Sprintf("https://%s%s", r.Host, r.URL.Path)
+	} else {
+		params.RouteUrl = fmt.Sprintf("http://%s%s", r.Host, r.URL.Path)
+	}
+
+	return nil
+}
+
+func ExtractSearchParams(r *http.Request) *string {
+	queryParams := r.URL.Query()
+	searchParam := queryParams.Get("search")
+
+	if searchParam == "" {
+		return nil
+	}
+	searchFields := strings.Split(searchParam, ",")
+	searchString := strings.Join(searchFields, "|")
+	return &searchString
 }

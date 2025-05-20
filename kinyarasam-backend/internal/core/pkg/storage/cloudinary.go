@@ -71,9 +71,6 @@ func (s *Service) Get(
 	request *serializers.CloudinaryGetRequest,
 ) (interface{}, *int64, error) {
 	objectOutput, err := s.Cloudinary.Image(request.FileKey)
-	// 	admin.AssetParams{
-	// 	PublicID: request.FileKey,
-	// })
 	if err != nil {
 		return nil, nil, err
 	}
