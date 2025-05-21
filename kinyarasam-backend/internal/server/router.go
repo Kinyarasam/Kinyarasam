@@ -8,6 +8,7 @@ import (
 	"github.com/kinyarasam/kinyarasam/internal/core/config"
 	"github.com/kinyarasam/kinyarasam/internal/core/handlers"
 	educationRoutes "github.com/kinyarasam/kinyarasam/internal/education/routes"
+	experienceRoutes "github.com/kinyarasam/kinyarasam/internal/experience/routes"
 	profileRoutes "github.com/kinyarasam/kinyarasam/internal/profile"
 	storageRoutes "github.com/kinyarasam/kinyarasam/internal/storage"
 	userRoutes "github.com/kinyarasam/kinyarasam/internal/user/routes"
@@ -38,4 +39,5 @@ func (r *Router) InitializeRoutes(cfg *config.WebServerConfig) {
 	profileRoutes.InitializeRoute(profileRoutes.Payload{Router: api, Config: cfg})
 	storageRoutes.InitializeRoute(storageRoutes.Payload{Router: apiRoute, Config: cfg})
 	educationRoutes.InitializeRoute(educationRoutes.Payload{Router: apiRoute, Config: cfg})
+	experienceRoutes.InitializeRoute(experienceRoutes.Payload{Router: apiRoute, Config: cfg})
 }
