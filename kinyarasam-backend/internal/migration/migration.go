@@ -6,6 +6,8 @@ import (
 
 	"ariga.io/atlas-provider-gorm/gormschema"
 	educationModels "github.com/kinyarasam/kinyarasam/internal/education/models"
+	experienceModels "github.com/kinyarasam/kinyarasam/internal/experience/models"
+	projectModels "github.com/kinyarasam/kinyarasam/internal/project/models"
 	storageModels "github.com/kinyarasam/kinyarasam/internal/storage/models"
 	userModels "github.com/kinyarasam/kinyarasam/internal/user/models"
 	"github.com/sirupsen/logrus"
@@ -17,6 +19,8 @@ func RunMigration() error {
 		userModels.User{},
 		storageModels.Files{},
 		educationModels.Education{},
+		projectModels.Project{},
+		experienceModels.Experience{},
 	}
 
 	stmts, err := gormschema.New("postgres").Load(models...)
