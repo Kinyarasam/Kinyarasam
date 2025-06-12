@@ -11,6 +11,19 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
+func GetExperience(
+	ctx context.Context,
+	condition models.Experience,
+) (*models.Experience, error) {
+	result, err := postgres.Service.DAO.Get(ctx, condition)
+	if err != nil {
+		return nil, err
+	}
+
+	exp := result.(models.Experience)
+	return &exp, nil
+}
+
 func UpdateExperience(
 	ctx context.Context,
 	experienceId,
@@ -53,6 +66,9 @@ func UpdateExperience(
 	}
 	if request.ImageURL != "" {
 		updateData.ImageURL = request.ImageURL
+	}
+	if request.Location != "" {
+		updateData.Location = request.Location
 	}
 
 	err = postgres.Service.DAO.Update(ctx, models.Experience{

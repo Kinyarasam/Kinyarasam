@@ -55,7 +55,7 @@ func RunServer() (err error) {
 	server.Router.InitializeRoutes(webServerConfig)
 
 	c := cors.New(cors.Options{
-		AllowedHeaders: []string{},
+		AllowedHeaders: []string{"*"},
 		AllowedOrigins: []string{"*"},
 		AllowedMethods: []string{"GET", "POST", "PUT", "UPDATE", "OPTIONS", "DELETE", "PATCH"},
 	})

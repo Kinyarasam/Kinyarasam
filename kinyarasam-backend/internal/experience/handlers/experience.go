@@ -25,12 +25,13 @@ func ListExperienceHandler(
 		return
 	}
 
-	experience, err := postgres.Service.DAO.GetPaginated(r.Context(), models.Experience{}, &params)
+	result, err := postgres.Service.DAO.GetPaginated(r.Context(), models.Experience{}, &params)
 	if err != nil {
 		logrus.Error()
 	}
 
-	logrus.Info(experience)
+	experience := result.(postgres.PaginatedResponse)
+
 	response := utils.Response{
 		Message: "Successful request",
 		Success: true,
@@ -173,5 +174,49 @@ func GetExperienceHandler(
 	}
 	if err := utils.WriteHTTPResponse(w, response, http.StatusOK); err != nil {
 		utils.HandleInternalServerError(w, "error writing http response")
+	}
+}
+
+func AddSkillHandler(
+	w http.ResponseWriter,
+	r *http.Request,
+) {
+	var request serializers.AddSkillsRequest
+	if err := utils.ValidateHTTPRequestPayload(w, r, &request); err != nil {
+		return
+	}
+
+	experienceId := mux.Vars(r)["experience_id"]
+	condition := models.Experience{
+		Model: base.Model{Id: experienceId},
+	}
+
+	experience, err := daos.GetExperience(r.Context(), condition)
+	if err != nil {
+		logrus.WithError(err).Error("Error adding skills")
+		if err == gorm.ErrRecordNotFound {
+			utils.HandleRecordNotFoundError(w, err.Error())
+			return
+		}
+		utils.HandleInternalServerError(w, err.Error())
+		return
+	}
+
+	experience.Skills = append(experience.Skills, request.Skills...)
+	if err = postgres.Service.DAO.Update(r.Context(), condition, experience); err != nil {
+		logrus.WithError(err).Error("error updating skills")
+		utils.HandleInternalServerError(w, err.Error())
+		return
+	}
+
+	response := utils.Response{
+		Success: true,
+		Message: "Skill added successfully",
+		Data:    experience,
+	}
+	if err = utils.WriteHTTPResponse(w, response, http.StatusAccepted); err != nil {
+		logrus.WithError(err).Error("error writing http response")
+		utils.HandleInternalServerError(w, err.Error())
+		return
 	}
 }

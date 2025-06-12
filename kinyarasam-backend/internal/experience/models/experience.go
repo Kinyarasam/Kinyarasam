@@ -4,6 +4,7 @@ import (
 	"time"
 
 	base "github.com/kinyarasam/kinyarasam/internal/core/models"
+	"github.com/lib/pq"
 )
 
 type EmploymentType string
@@ -26,6 +27,6 @@ type Experience struct {
 	EndDate        *time.Time     `json:"end_date"` // Nullable for current roles
 	Description    string         `json:"description"`
 	EmploymentType EmploymentType `json:"employment_type" gorm:"type:varchar(50)"`
-	Skills         []string       `json:"skills" gorm:"type:text[]"`
+	Skills         pq.StringArray `json:"skills" gorm:"type:text[]"`
 	ImageURL       string         `json:"image_url"`
 }

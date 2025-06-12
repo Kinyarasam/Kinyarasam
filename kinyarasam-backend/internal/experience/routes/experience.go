@@ -26,4 +26,6 @@ func InitializeRoute(payload Payload) {
 	protectedRouter.HandleFunc("", handlers.CreateExperience).Methods(http.MethodPost)
 	protectedRouter.HandleFunc("/{experience_id:"+utils.UUID4Regex+"}", handlers.UpdateExperience).Methods(http.MethodPatch)
 	// protectedRouter.HandleFunc("/{experience_id:"+utils.UUID4Regex+"}", handlers.DeleteExperience).Methods(http.MethodDelete)
+
+	protectedRouter.HandleFunc("/{experience_id:"+utils.UUID4Regex+"}/skills", handlers.AddSkillHandler).Methods(http.MethodPost)
 }

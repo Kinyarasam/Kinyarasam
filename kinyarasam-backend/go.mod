@@ -47,6 +47,7 @@ require (
 	github.com/jinzhu/copier v0.4.0
 	github.com/joho/godotenv v1.5.1
 	github.com/kelseyhightower/envconfig v1.4.0
+	github.com/lib/pq v1.10.9
 	github.com/rs/cors v1.11.1
 	golang.org/x/sys v0.30.0 // indirect
 	gorm.io/driver/postgres v1.5.11

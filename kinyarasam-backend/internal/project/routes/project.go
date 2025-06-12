@@ -13,7 +13,7 @@ type Payload struct {
 	Config *config.WebServerConfig
 }
 
-func InitializeRpute(payload Payload) {
+func InitializeRoute(payload Payload) {
 	apiRouter := payload.Router.PathPrefix("/project").Subrouter()
 
 	apiRouter.HandleFunc("", handlers.ListProjectHandler).Methods(http.MethodPost)
