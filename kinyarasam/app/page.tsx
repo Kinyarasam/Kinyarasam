@@ -15,7 +15,13 @@ import { FloatingNav } from "@/components/floating-nav"
 import { HeroParticles } from "@/components/hero-particles"
 import { ChatBot } from "@/components/chat-bot"
 import { apiService } from "@/services/api"
-import { type Project, type Experience, type BlogPost, type Profile } from '@/services/interface'
+import {
+  type Project,
+  type Experience,
+  type BlogPost,
+  type Profile,
+  type Education,
+} from '@/services/interface'
 import { Button } from "@/components/ui/button"
 import { CircuitBackground } from "@/components/circuit-background"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -147,8 +153,8 @@ function AnimatedTimelineItem({ experience, delay = 0 }: { experience: Experienc
       <div className="space-y-1">
         <h3 className="font-bold group-hover:text-indigo-600 transition-colors">{experience.title}</h3>
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm text-gray-500 dark:text-gray-400">{experience.organization}</p>
-          <p className="text-sm font-medium">{experience.period}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">{experience.institution}</p>
+          <p className="text-sm font-medium">{experience.start_date} - {(experience.end_date || "present")}</p>
         </div>
         <p className="text-sm text-gray-500 dark:text-gray-400">{experience.description}</p>
       </div>
@@ -157,6 +163,24 @@ function AnimatedTimelineItem({ experience, delay = 0 }: { experience: Experienc
 }
 
 function ExperienceSkeleton() {
+  return (
+    <div className="relative pl-8 pb-4">
+      <div className="absolute left-0 top-0 h-full w-px bg-gray-200 dark:bg-gray-800" />
+      <div className="absolute left-[-4px] top-1 h-2 w-2 rounded-full bg-gray-300 dark:bg-gray-700" />
+      <div className="space-y-1">
+        <div className="h-6 w-3/4 bg-gray-200 dark:bg-gray-800 rounded animate-pulse"></div>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+          <div className="h-4 w-1/2 bg-gray-200 dark:bg-gray-800 rounded animate-pulse"></div>
+          <div className="h-4 w-1/4 bg-gray-200 dark:bg-gray-800 rounded mt-1 sm:mt-0 animate-pulse"></div>
+        </div>
+        <div className="h-4 w-full bg-gray-200 dark:bg-gray-800 rounded mt-1 animate-pulse"></div>
+        <div className="h-4 w-5/6 bg-gray-200 dark:bg-gray-800 rounded mt-1 animate-pulse"></div>
+      </div>
+    </div>
+  )
+}
+
+function EducationSkeleton() {
   return (
     <div className="relative pl-8 pb-4">
       <div className="absolute left-0 top-0 h-full w-px bg-gray-200 dark:bg-gray-800" />
@@ -246,6 +270,7 @@ export default function Home() {
   const projectsRef = useRef<HTMLElement>(null);
   const blogRef = useRef<HTMLElement>(null);
   const experienceRef = useRef<HTMLElement>(null);
+  const educationRef = useRef<HTMLElement>(null);
   const contactRef = useRef<HTMLElement>(null);
 
   const sectionRefs = useMemo(
@@ -255,21 +280,24 @@ export default function Home() {
       projects: projectsRef,
       blog: blogRef,
       experience: experienceRef,
+      education: educationRef,
       contact: contactRef,
     }),
-    [heroRef, aboutRef, projectsRef, blogRef, experienceRef, contactRef]
+    [heroRef, aboutRef, projectsRef, blogRef, experienceRef, educationRef, contactRef]
   );
 
   // State for data
   const [profile, setProfile] = useState<Profile | null>(null)
   const [projects, setProjects] = useState<Project[] | null>(null)
   const [experience, setExperience] = useState<Experience[] | null>(null)
+  const [education, setEducation] = useState<Education[] | null>(null)
   const [blogPosts, setBlogPosts] = useState<BlogPost[] | null>(null)
 
   // Loading states
   const [profileLoading, setProfileLoading] = useState(true)
   const [projectsLoading, setProjectsLoading] = useState(true)
   const [experienceLoading, setExperienceLoading] = useState(true)
+  const [educationLoading, setEducationLoading] = useState(true)
   const [blogLoading, setBlogLoading] = useState(true)
 
   // Fetch profile data
@@ -282,37 +310,7 @@ export default function Home() {
         setProfile(data)
       } catch (error) {
         console.error("Error fetching profile:", error)
-        // Set default profile data when API fails
-        // setProfile({
-        //   name: "Kinyara Samuel Gachigo",
-        //   title: "Software Engineer & Telecom Expert",
-        //   bio: "I'm a software engineer with a background in telecommunications.",
-        //   expertise: [
-        //     {
-        //       title: "Software Development",
-        //       description: "Full-stack development with modern frameworks and cloud technologies.",
-        //       icon: "Code",
-        //     },
-        //     {
-        //       title: "Telecommunications",
-        //       description: "Network protocols, VoIP systems, and wireless communications.",
-        //       icon: "Wifi",
-        //     },
-        //   ],
-        //   skills: [
-        //     { name: "JavaScript", value: 0.9 },
-        //     { name: "React", value: 0.85 },
-        //     { name: "Node.js", value: 0.8 },
-        //   ],
-        //   technologies: ["Golang", "Java", "C", "Python", "Arduino", "JavaScript", "TypeScript", "React", "Next.js", "Node.js"],
-        //   contact: {
-        //     email: "skinyara.30@gmail.com",
-        //     linkedin: "linkedin.com/in/kinyarasam",
-        //     github: "github.com/kinyarasam",
-        //     twitter: "twitter.com/kinyarasam",
-        //   },
-        //   resumeUrl: "/api/resume",
-        // })
+
       } finally {
         setProfileLoading(false)
       }
@@ -321,7 +319,6 @@ export default function Home() {
     fetchProfile()
   }, [])
 
-  // Add similar error handling for other API calls
   useEffect(() => {
     const fetchProjects = async () => {
       try {
@@ -333,7 +330,7 @@ export default function Home() {
         // Set default projects data when API fails
         setProjects([
           {
-            id: 1,
+            id: "1",
             title: "Network Traffic Analyzer",
             description: "A real-time network traffic analysis tool built with Python and React.",
             tags: ["Python", "React", "WebSockets", "Network"],
@@ -343,7 +340,7 @@ export default function Home() {
             githubUrl: "",
           },
           {
-            id: 2,
+            id: "2",
             title: "E-commerce Platform",
             description: "A full-stack e-commerce solution with payment processing and inventory management.",
             tags: ["Next.js", "Node.js", "MongoDB", "Stripe"],
@@ -376,6 +373,22 @@ export default function Home() {
     }
 
     fetchExperience()
+  }, [])
+
+  useEffect(() => {
+    const fetchEducation = async () => {
+      try {
+        setEducationLoading(true)
+        const data = await apiService.getEducation()
+        setEducation(data)
+      } catch (error) {
+        console.error("error fetching education: ", error)
+      } finally {
+        setEducationLoading(false)
+      }
+    }
+
+    fetchEducation()
   }, [])
 
   // Fetch blog posts
@@ -852,9 +865,9 @@ export default function Home() {
                   <Terminal className="mr-1 h-3 w-3" />
                   Career
                 </div>
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Experience & Education</h2>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Experience</h2>
                 <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  My professional journey and academic background.
+                  My professional journey background.
                 </p>
               </motion.div>
             </div>
@@ -874,6 +887,52 @@ export default function Home() {
                   </div>
                 )}
               </div>
+            </div>
+          </div>
+        </section>
+
+         <section id="education" ref={sectionRefs.education} className="relative w-full py-12 md:py-24 lg:py-32">
+          <CircuitBackground className="absolute inset-0 -z-10 opacity-5 w-full mx-auto" />
+          <div className="container px-4 md:px-6 mx-auto">
+            <div className="flex flex-col items-center justify-center space-y-4 text-center">
+              <motion.div
+                className="space-y-2"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
+                <div className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80">
+                  <Terminal className="mr-1 h-3 w-3" />
+                  Education
+                </div>
+                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Education</h2>
+                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                  My education journey background.
+                </p>
+              </motion.div>
+            </div>
+            <div className="mx-auto max-w-3xl py-12">
+              {/* <div className="space-y-8">
+                {educationLoading ? (
+                  Array(5)
+                    .fill(0)
+                    .map((_, i) => <EducationSkeleton key={i} />)
+                ) : education && education.length > 0 ? (
+                  education.map(
+                    (item, index) => (
+                    <AnimatedTimelineItem
+                      key={item.id}
+                      experience={item}
+                      delay={index * 0.1}
+                    />
+                  ))
+                ) : (
+                  <div className="text-center py-12">
+                    <p className="text-muted-foreground">No education data found.</p>
+                  </div>
+                )}
+              </div> */}
             </div>
           </div>
         </section>

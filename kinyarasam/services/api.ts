@@ -1,5 +1,6 @@
 import { API_ENDPOINTS } from "@/app/config"
-import { ApiResponse, BlogPost, BlogPostDetail, ContactFormData, Experience, Profile, Project } from "./interface"
+import { BlogPost, BlogPostDetail, ContactFormData, Experience, Education, Profile, Project } from "./interface"
+import { ApiResponse, PaginatedResponse } from "./admin";
 
 // API service functions
 export const apiService = {
@@ -41,14 +42,14 @@ export const apiService = {
         throw new Error(errorData.message || "Failed to fetch projects")
       }
 
-      const data: ApiResponse<Project[]> = await response.json()
+      const data: PaginatedResponse<Project> = await response.json()
 
       // Validate response structure
       if (!data.success || !data.data) {
         throw new Error("Invalid response structure")
       }
 
-      return data.data
+      return data.data.items
     } catch (error) {
       console.error("Error fetching projects")
       throw error;
@@ -65,14 +66,38 @@ export const apiService = {
         throw new Error(errorData.message || "Failed to fetch experience")
       }
 
-      const data: ApiResponse<Experience[]> = await response.json();
+      const data: PaginatedResponse<Experience> = await response.json();
 
       // Validate response structure
       if (!data.success || !data.data) {
         throw new Error('Invalid response structure');
       }
 
-      return data.data
+      return data.data!.items
+    } catch(error) {
+      console.error("Error fetching Experience:", error)
+      throw error
+    }
+  },
+
+  // Education
+  getEducation: async (): Promise<Education[]> => {
+    try {
+      const response = await fetch(API_ENDPOINTS.EDUCATION)
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}))
+        throw new Error(errorData.message || "Failed to fetch experience")
+      }
+
+      const data: PaginatedResponse<Education> = await response.json();
+
+      // Validate response structure
+      if (!data.success || !data.data) {
+        throw new Error('Invalid response structure');
+      }
+
+      return data.data.items
     } catch(error) {
       console.error("Error fetching Experience:", error)
       throw error
@@ -102,14 +127,14 @@ export const apiService = {
         throw new Error(errorData.message || "Failed to fetch blog posts")
       }
 
-      const data: ApiResponse<BlogPost[]> = await response.json();
+      const data: PaginatedResponse<BlogPost> = await response.json();
 
       // Validate response structure
       if (!data.success || !data.data) {
         throw new Error('Invalid response structure');
       }
 
-      return data.data
+      return data.data.items
     } catch(error) {
       console.error("Error fetching blog posts:", error)
       throw error
